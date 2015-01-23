@@ -9,7 +9,7 @@ Finish by January 27.
 == Details
 
 Whether you know it or not, you are familiar with *infix* notation in math.
-In infix notation operators (e.g., +, -, *, /) are placed *in-between* operands
+In infix notation operators (e.g., `+, -, *, /`) are placed *in-between* operands
 (numbers).
 For example, infix expression `(2 + 5) * 3` evaluates to `21`, because we
 evaluate the `2 + 5` first to `7`, then evaluate `7 * 3` to `21`.
@@ -32,7 +32,24 @@ Then, we see the value `3`; we place this on the stack.
 Next, we see `*`; we pop the `3` and the `7` off the stack, and multiply.
 We place the result, `21` on the stack.
 
+== Example input
+
+Given this:
+
+----
+5 3 - 4 8 * + .
+----
+
+Your program should print out `34`, because
+`5 - 3` is `2` and `4 * 8` is `32` and when you add them together
+we get `34`. The `.` at the end should print out the contents
+of the stack (vector).
+
 == Hints
+
+Most operators (e.g., `+, -, *, /`) pop two items off the stack and places
+the result of the operation on the stack. However; the `.` operator will just
+iterate throught the stack and print out the contents of the stack.
 
 Use the algorithm described here:
 
