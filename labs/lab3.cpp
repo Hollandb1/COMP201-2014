@@ -24,9 +24,10 @@ public:
     // Return visible stuff (invisible stuff is shown with character *)
     char get(int row, int column);
     // Flip this row/column
-    void flip(int row, int column);
+    void flip(int row, int column, int& iteration);
     // Is the game over?
     bool gameOver();
+	
 private:
     // Is the row/column valid?
     bool valid(int row, int column);
@@ -44,6 +45,8 @@ private:
     // What'd we flip last?
     int lastRow;
     int lastColumn;
+	int llR;
+	int llC;
     State state;
 };
 
@@ -87,16 +90,30 @@ Model::Model(int w, int h) {
         visible[i] = new char[width];
     }
     srand(time(0));
-    // TODO: make this random-ish
-    // Look at asciitable.com and do some stuff with rand() % number
-    // Hint: insert characters in order, then shuffle later in a separate loop
+	char letter = 'A';
+	int iteration=1;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            grid[i][j] = 'a';
+           visible[i][j] = '*';
             // Everything's invisible at first
-            visible[i][j] = '*';
+			grid[i][j] = letter;
+			if (iteration % 2 == 0){
+				
+				letter++;
+			}
+			iteration++;
+			if (iteration == 53){
+				letter = 'A';
+			}
         }
     }
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			std::swap(grid[i][j], grid[rand() % (height)][rand() % (width)]);
+		}
+	}
+
+		
 }
 // Destructor deletes dynamically allocated memory
 Model::~Model() {
@@ -107,32 +124,70 @@ Model::~Model() {
     delete grid;
     delete visible;
 }
-// TODO: Is the row/column valid?
 // That is, is the row within the height, and is the column within the width?
 // Return whether it is or isn't.
 bool Model::valid(int row, int column) {
-    return true;
+	if (row >= 0 && row <= height && column >= 0 && column <= width)
+		return true;
+	else
+		return false;
 }
 bool Model::matched(int row, int column) {
     return true;
 }
 // TODO: Flip a cell
-void Model::flip(int row, int column) {
-    // If the row and column are not valid, break out and don't do anything
-    if (!valid(row, column)) { return; }
-    
-    // If the last selected row and column are invalid,
-        // It means we're selecting the first "cell" to flip
-    // Otherwise, we are selecting the next "cell" to flip
-        // If the last cell and the current cell match, great!
-        // Otherwise, make the last cell invisible (set it to *)
-    // Make the current cell visible
+void Model::flip(int row, int column, int& iteration) {
+	// If the row and column are not valid, break out and don't do anything
+	if (!valid(row, column)) {return; }
+	if (visible[row][column] == grid[row][column]) { iteration--; return; }
+	visible[row][column] = grid[row][column];
+	
+	if (iteration == 1)
+	{
+		lastRow = row;
+		lastColumn = column;
+		return;
+	}
+	
+
+	if (iteration == 2)
+	{
+			llR = lastRow;
+			llC = lastColumn;
+			lastRow = row;
+			lastColumn = column;
+		
+	}
+	if (iteration == 3)
+	{
+		if (visible[lastRow][lastColumn] == visible[llR][llC])
+		{
+			iteration = 1;
+		}
+		
+		else{
+			visible[lastRow][lastColumn] = '*';
+			visible[llR][llC] = '*';
+			iteration = 1;
+			
+		}
+		llR = lastRow;
+		llC = lastColumn;
+		lastRow = row;
+		lastColumn = column;
+	}
+	return;
 }
 // TODO: If everything is visible, then it's game over
 bool Model::gameOver() {
-    // Hint: assume the game is over, unless it isn't
-    // Hint: Loop through the grid and see if any element is not visible
-    return false;
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			if (visible[i][j] == '*'){
+				return false;
+			}
+		}
+	}
+	return true;
 }
 int Model::getWidth() {
     return width;
@@ -162,14 +217,16 @@ void View::show(Model * model) {
 // Read in coordinates
 // Until we're done
 void Controller::loop() {
-    int row, col;
+	int row, col;
+	int iteration = 1;
     while (!model->gameOver()) {
-        view->show(model);
+		view->show(model);
         cout << "Enter row:    ";
         cin >> row;
         cout << "Enter column: ";
         cin >> col;
-        model->flip(row, col);
+        model->flip(row, col, iteration);
+		iteration++;
     }
     cout << "Hooray, you win!" << endl;
 }
