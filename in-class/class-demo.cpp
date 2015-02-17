@@ -3,6 +3,7 @@ using namespace std;
 
 class Object {
 public:
+    // Constructor
     Object(string saythis) {
         greeting = saythis;
     }
@@ -14,9 +15,11 @@ private:
 };
 
 int main() {
+    // Stack allocation
     Object cow("moo");
     Object pig("oink");
     
+    // Heap allocation
     Object * person;
     person = new Object("hello");
     
