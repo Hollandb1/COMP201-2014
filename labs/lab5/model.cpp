@@ -6,6 +6,7 @@ using namespace std;
 
 // Constructor initializes the object
 Model::Model(int w, int h) {
+    ended = false;
     width = w;
     height = h;
     Coordinate head;
@@ -25,12 +26,21 @@ Model::~Model() {
 }
 
 bool Model::gameOver() {
-    return snake.empty() || snake.size() == width * height;
+    return ended || snake.empty() || snake.size() == width * height;
 }
 
 // Which way should the snake face?
 void Model::go(Direction d) {
     direction = d;
+}
+
+// Return true if the front of the snake has the same coordinate as the food
+bool Model::eating() {
+    return false;
+}
+
+void Model::end() {
+    ended = true;
 }
 
 // Move foward

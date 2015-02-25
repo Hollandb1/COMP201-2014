@@ -23,9 +23,36 @@ View::View(string title, int width, int height) {
         fail = true;
         return;
     }
+    //Initialize SDL_mixer
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) {
+        fail = true;
+        return;
+    }
+
+    // Initialize True type fonts
+    if( TTF_Init() == -1 ) {
+        return;
+    }
+
+    // Load assets
+    snake = load("assets/snake.png");
+    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
+    if (music != NULL) {
+        Mix_PlayMusic( music, -1 );
+    }
+    food = Mix_LoadWAV("assets/yummy.wav");
+    dead = Mix_LoadWAV("assets/nooo.wav");
+    font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
 }
 
 View::~View() {
+    TTF_CloseFont( font );
+    TTF_Quit();
+    Mix_FreeMusic(music);
+    Mix_FreeChunk(food);
+    Mix_FreeChunk(dead);
+    SDL_FreeSurface(snake);
+    SDL_FreeSurface(text);
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
@@ -59,6 +86,13 @@ void View::show(Model * model) {
     dest.w = 16;
     dest.h = 16;
     
+    if (model->eating()) {
+        Mix_PlayChannel( -1, food, 0 );
+    }
+    if (model->gameOver()) {
+        Mix_PlayChannel( -1, dead, 0 );
+    }
+    
     // TODO: I went all Atari 2600 on you guys. Perhaps you'd like to upgrade
     // the view with something nice, like a cartoon snake?
     // HINT: you'd need up, down, left, and right facing assets for:
@@ -79,6 +113,12 @@ void View::show(Model * model) {
         0x00, 0x80, 0x00));
     }
     
+    
+    SDL_Color textColor = { 255, 255, 255 };
+    text = TTF_RenderText_Solid( font, "Playing: Johaness Gilther - Don't leave me", textColor );
+    dest.x = 10;
+    dest.y = 730;
+    SDL_BlitSurface( text, NULL, screen, &dest );
 
     SDL_UpdateWindowSurface(window);
 }

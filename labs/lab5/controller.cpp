@@ -28,16 +28,17 @@ void Controller::loop() {
 
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
+        view->show(model);
         // Crawl (move) once every 100 milliseconds
         if (currentTime > lastTime + 100) {
             model->crawl();
             lastTime = currentTime;
         }
-        view->show(model);
         if (SDL_PollEvent(&e) != 0) {
             switch (e.type) {
             case SDL_QUIT:
-                return;
+                model->end();
+                break;
             case SDL_KEYDOWN:
                 switch(e.key.keysym.sym) {
                 case SDLK_DOWN:
@@ -54,24 +55,7 @@ void Controller::loop() {
             }
         }
     }
+    // TODO: show something nice?
     view->show(model);
-    SDL_Delay(3000);
+    SDL_Delay(5250);
 }
-
-/*
-// Show the board
-// Read in coordinates
-// Until we're done
-void Controller::loop() {
-    int row, col;
-    while (!model->gameOver()) {
-        view->show(model);
-        cout << "Enter row:    ";
-        cin >> row;
-        cout << "Enter column: ";
-        cin >> col;
-        model->flip(row, col);
-    }
-    cout << "Hooray, you win!" << endl;
-}
-*/
