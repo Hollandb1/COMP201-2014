@@ -19,6 +19,8 @@ https://wiki.libsdl.org/SDL_Event
 */
 void Controller::loop() {
     SDL_Event e;
+	int row, col;
+	int iteration = 1;
     while(!model->gameOver()) {
         view->show(model);
         if (SDL_PollEvent(&e) != 0) {
@@ -26,7 +28,8 @@ void Controller::loop() {
             case SDL_QUIT:
                 return;
             case SDL_MOUSEBUTTONDOWN:
-                model->flip(e.button.y / 80, e.button.x / 80);
+                model->flip(e.button.y / 80, e.button.x / 80, iteration);
+				iteration++;
                 break;
             }
         }

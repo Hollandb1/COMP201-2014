@@ -61,17 +61,59 @@ Model::~Model() {
 // That is, is the row within the height, and is the column within the width?
 // Return whether it is or isn't.
 bool Model::valid(int row, int column) {
-    return true;
+    	if (row >= 0 && row <= height && column >= 0 && column <= width)
+		return true;
+	else
+		return false;
 }
 bool Model::matched(int row, int column) {
     return true;
 }
 // TODO: Flip a cell
-void Model::flip(int row, int column) {
+void Model::flip(int row, int column, int& iteration) {
     // If the row and column are not valid, break out and don't do anything
-    if (!valid(row, column)) { return; }
-    visible[row][column] = grid[row][column];
+ 	if (!valid(row, column)) {return; }
+	if (visible[row][column] == grid[row][column]) { iteration--; return; }
+	visible[row][column] = grid[row][column];
+	
+	if (iteration == 1)
+	{
+		lastRow = row;
+		lastColumn = column;
+		return;
+	}
+	
+
+	if (iteration == 2)
+	{
+			llR = lastRow;
+			llC = lastColumn;
+			lastRow = row;
+			lastColumn = column;
+		
+	}
+	if (iteration == 3)
+	{
+		if (visible[lastRow][lastColumn] == visible[llR][llC])
+		{
+			iteration = 1;
+		}
+		
+		else{
+			visible[lastRow][lastColumn] = '_';
+			visible[llR][llC] = '_';
+			iteration = 1;
+			
+		}
+		llR = lastRow;
+		llC = lastColumn;
+		lastRow = row;
+		lastColumn = column;
+	}
+	return;
 }
+
+
 // If everything is visible, then it's game over
 bool Model::gameOver() {
     // Assume the game is over
@@ -84,6 +126,7 @@ bool Model::gameOver() {
             }
         }
     }
+
     
     if (isOver) {
         // Set a nice game over message

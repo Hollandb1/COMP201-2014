@@ -15,7 +15,7 @@ Model::Model(int w, int h) {
     head.y = 0;
     tail.x = 0;
     tail.y = 0;
-    food.x = 5;
+    food.x = 5; //randomize
     food.y = 10;
     snake.push_front(head);
     snake.push_back(tail);

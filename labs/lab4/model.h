@@ -23,7 +23,7 @@ public:
     // Return visible stuff (invisible stuff is shown with character *)
     char get(int row, int column);
     // Flip this row/column
-    void flip(int row, int column);
+    void flip(int row, int column, int& iteration);
     // Is the game over?
     bool gameOver();
 private:
@@ -41,8 +41,10 @@ private:
     // What's the height?
     int height;
     // What'd we flip last?
-    std::vector<int> lastRow;
-    std::vector<int> lastColumn;
+    int lastRow;
+    int lastColumn;
+	int llR;
+	int llC;
     State state;
 };
 
