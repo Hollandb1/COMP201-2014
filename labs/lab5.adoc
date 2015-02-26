@@ -1,0 +1,51 @@
+= Lab 5: Snake
+
+If you haven't done so already, get the source code for snake.
+
+----
+# Go into your repository
+cd ~/COMP201-2014
+# Commit your work (if any) first
+git commit -am "Work in progress"
+# Get the code
+git pull upstream master
+----
+
+In `labs/lab5` is the code for snake. Try to build and run the code.
+
+----
+# Go into lab 5 folder
+cd labs/lab5
+# Make snake (Windows)
+gmake
+# Make snake (Mac OS X, Linux)
+make
+# Run snake
+./lab5.exe
+----
+
+The code has TODO items in it.
+
+. You need to detect collisions with the head of the snake and:
+.. *food*. This should grow the snake and randomly place the food somewhere else.
+.. *the perimeter of the screen*. This should kill the snake.
+.. *the snake itself*. This should kill the snake.
+. Swap out `std::list` with your own implementation of a doubly-linked list in `list.cpp`.
+
+Also, if you're up for a challenge, try to modify the view to render the snake
+using the snake parts in `labs/lab5/assets/snake.png`.
+
+Finally, you are welcome to merge audio effects from `lab5text`
+
+----
+git fetch --all
+git merge upstream/lab5text
+git mergetool
+----
+
+As always, when you are done:
+
+----
+git commit -am "Lab 5 done"
+git push origin master
+----
