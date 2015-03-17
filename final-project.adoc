@@ -3,10 +3,32 @@
 Form small groups of 2-3 people (no more than 4, please) to create some
 program with a cool demo.
 
-Examples: connect 4, minesweeper, checkers, asteroids, paint program, hangman
+Examples: connect 4, minesweeper, checkers, asteroids, paint program, hangman,
 simulator, solitaire, side scroller. 
 
+== Questions to answer
+
+* Who are you working with?
+* What on?
+** Bare minimum requirements
+** Ideal requirements
+* Who's going to do what?
+** Artwork
+** Game logic (Model)
+*** The underlying data structure (Stucts? Lists? Vectors? Arrays?)
+*** E.g., collision detection, is the game over, etc.
+** Handling input events (Controller)
+** Rendering the game to the screen (View)
+
+== Milestones
+
+* Informal demo on April 7
+
+== Goal
+
 On final exam day, we'll all demo our programs that we wrote.
+
+== References
 
 * https://wiki.libsdl.org/APIByCategory[SDL2 API reference]
 * http://lazyfoo.net/tutorials/SDL/[SDL2 tutorial]
