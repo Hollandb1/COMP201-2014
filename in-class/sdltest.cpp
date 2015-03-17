@@ -94,7 +94,15 @@ int main(int argc, char* argv[]) {
     // Draw to screen surface
     SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format,
         0x00, 0x00, 0x00));
-    SDL_BlitSurface( planets, NULL, screenSurface, NULL );
+    SDL_Rect source;
+    SDL_Rect destination;
+    source.x = 465;
+    source.y = 0;
+    source.w = 465;
+    source.h = 460;
+    destination.y = 100;
+    destination.x = 0;
+    SDL_BlitSurface( planets, &source, screenSurface, &destination );
     
     // Show surface on screen window
     // This is when we see what we drew to the screen surface

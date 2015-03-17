@@ -1,0 +1,13 @@
+= Final project
+
+Form small groups of 2-3 people (no more than 4, please) to create some
+program with a cool demo.
+
+Examples: connect 4, minesweeper, checkers, asteroids, paint program, hangman
+simulator, solitaire, side scroller. 
+
+On final exam day, we'll all demo our programs that we wrote.
+
+* https://wiki.libsdl.org/APIByCategory[SDL2 API reference]
+* http://lazyfoo.net/tutorials/SDL/[SDL2 tutorial]
+* http://opengameart.org/content/2d-complete-kit[Open Game Art]

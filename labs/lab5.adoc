@@ -29,7 +29,8 @@ The code has TODO items in it.
 . You need to detect collisions with the head of the snake and:
 .. *food*. This should grow the snake and randomly place the food somewhere else.
 .. *the perimeter of the screen*. This should kill the snake.
-.. *the snake itself*. This should kill the snake.
+.. *the snake itself*. This should kill the snake. Detect collisions with the head of the snake
+   along with the rest of the body (everything in the snake other than the head)
 . Swap out `std::list` with your own implementation of a doubly-linked list in `list.cpp`.
 
 Also, if you're up for a challenge, try to modify the view to render the snake
@@ -40,6 +41,15 @@ Finally, you are welcome to merge audio effects from `lab5text`
 ----
 git fetch --all
 git merge upstream/lab5text
+git mergetool
+----
+
+Also, I make a goofup in the coordinates. Merge in `lab5fix` or remove `unsigned`
+from the declarations for `x` and `y` in the `Coordinate` struct.
+
+----
+git fetch --all
+git merge upstream/lab5fix
 git mergetool
 ----
 

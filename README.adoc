@@ -2,6 +2,8 @@
 
 http://en.cppreference.com/w/[C++ reference is your friend]
 
+https://github.com/lawrancej/COMP201-2014/blob/master/final-project.adoc[Final Project]
+
 == Week 7
 
 * https://github.com/lawrancej/COMP201-2014/blob/master/labs/lab5.adoc[Lab 5: Snake game and lists]
