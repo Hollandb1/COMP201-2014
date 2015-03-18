@@ -117,7 +117,7 @@ void View::show(Model * model) {
     SDL_Color textColor = { 255, 255, 255 };
     text = TTF_RenderText_Solid( font, "Playing: Johaness Gilther - Don't leave me", textColor );
     dest.x = 10;
-    dest.y = 730;
+    dest.y = 800;
     SDL_BlitSurface( text, NULL, screen, &dest );
 
     SDL_UpdateWindowSurface(window);

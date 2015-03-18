@@ -4,7 +4,7 @@
 using namespace std;
 
 Controller::Controller() {
-    model = new Model(8,8);
+    model = new Model(64,48);
     view = new View("Snake", 1024, 768);
 }
 

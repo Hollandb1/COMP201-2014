@@ -31,15 +31,16 @@ List<T>::List() {
 
 template <typename T>
 void List<T>::push_front(T element) {
-    Node<T> * node = new Node<T>(element, head);
-    if (head != NULL) {
-        head->prev = node;
-    }
-    head = node;
-    if (tail == NULL) {
-        tail = node;
-    }
+     Node<T> * node = new Node<T>(element, head);
+        if (head== NULL) {
+			tail = node;
+		}
+		else {
+			head -> prev = node;
+		}
+		head = node;
 }
+
 
 template <typename T>
 T List<T>::peek_front() {
@@ -60,17 +61,32 @@ void List<T>::pop_front() {
 
 template <typename T>
 void List<T>::push_back(T element) {
-
+	Node<T> * node = new Node<T>(element, tail);
+        if (tail!= NULL) {
+			head = node;
+		}
+		else {
+			tail -> next = node;
+		}
+		tail = node;
 }
 
 template <typename T>
 T List<T>::peek_back() {
-
+	return tail->data;
 }
 
 template <typename T>
 void List<T>::pop_back() {
-
+	Node<T> * node = tail->prev;
+        delete tail;
+        tail = node;
+		if (tail != NULL){
+			tail->next=NULL;
+		}
+		else {
+		head = NULL;
+		}
 }
 
 template <typename T>

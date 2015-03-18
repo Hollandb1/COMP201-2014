@@ -28,6 +28,7 @@ public:
     Node<T> * end();
     Node<T> * last();
     int size();
+	bool intercept(int x, int y);
 private:
     Node<T> * head;
     Node<T> * tail;
